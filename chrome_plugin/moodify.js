@@ -3,22 +3,29 @@
   *
 */
 
-var Moodify = {
-  contextHandler: function(image, tab) {
-    Moodify.push(image.srcUrl);
-  },
-  push: function(url) {
-    $.post("http://xteamshitboard.herokuapp.com/board", {
+function image(image, tab) {
+  $.post("http://xteamshitboard.herokuapp.com/board", {
     type: "IMAGE",
-    url: url
+    url: image.srcUrl
   });
-  }
 }
 
-
+function code(text, tab) {
+  $.post("http://xteamshitboard.herokuapp.com/board", {
+    type: "CODE",
+    content: text.selectionText,
+    codeLang: "Scala"
+  });
+}
 
 chrome.contextMenus.create({
-	title: "Add to my moodboard",
+	title: "Add image to my moodboard",
 	contexts: ["image"],
-	onclick: Moodify.contextHandler
+	onclick: image
+});
+
+chrome.contextMenus.create({
+  title: "Add code to my moodboard",
+  contexts: ["selection"],
+  onclick: code
 });
