@@ -11,11 +11,14 @@ function image(image, tab) {
 }
 
 function code(text, tab) {
+  /**
   $.post("http://xteamshitboard.herokuapp.com/board", {
     type: "CODE",
     content: text.selectionText,
     codeLang: "Scala"
   });
+  **/
+  console.log(window.getSelection().toString());
 }
 
 chrome.contextMenus.create({
