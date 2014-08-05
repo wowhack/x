@@ -8,6 +8,8 @@ var app = express();
 app.use(bodyParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var dummyCode = 'var hasProps = props && Base.isPlainObject(props),<br>internal = hasProps && props.internal === true,<br>matrix = this._matrix = new Matrix(),<br>project = paper.project;';
+
 boardStore.upsertItem({
   type: 'TEXT',
   content: 'I sat on the rug biding my time\nDrinking her wine\nWe talked until two and then she said\n"It\'s time for bed"'
@@ -26,6 +28,12 @@ boardStore.upsertItem({
 boardStore.upsertItem({
   type: 'SPOTIFY',
   uri: 'spotify:track:6TC8cblDfRetSnRFpJlMdX'
+});
+
+boardStore.upsertItem({
+  type: 'CODE',
+  content: dummyCode,
+  codeLang: 'scala'
 });
 
 

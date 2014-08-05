@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/prism.css">
   </head>
   <body>
     <div class="top"></div>
@@ -14,12 +15,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
 
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script>
+    <script src="js/prism.js"></script>
    
     <script>
-      hljs.initHighlightingOnLoad();
-
       var zindexCounter = 0;
 
       $(function() {
@@ -107,6 +105,9 @@
           zindex = getAndIncrementZindex();
         }
         setPosition(div, position, zindex);
+        if (item.type === 'CODE') {
+          Prism.highlightAll();
+        }
       };
 
       var getDiv = function (item) {
@@ -126,7 +127,8 @@
             codeLang = item.codeLang;
           }
           var content = item.content.replace(/\n/g, "<br />");
-          div = $('<div id="' + item.id + '" class="code draggable" style="width: 400px; position: absolute"><span class="pin"></span><pre><code class="' + codeLang + '">'+ content +'</code></pre></div>');
+//          div = $('<div id="' + item.id + '" class="code draggable" style="width: 600px; position: absolute"><span class="pin"></span><pre><code class="language-javascript">'+ content +'</code></pre></div>');
+          div = $('<div id="' + item.id + '" class="code draggable" style="width: 480px; position: absolute"><span class="pin"></span><pre><code class="language-javascript">var hasProps = props && Base.isPlainObject(props),\n internal = hasProps && props.internal === true,\n matrix = this._matrix = new Matrix(),\n project = paper.project;</code></pre></div>');
         }
         return div;
       };
