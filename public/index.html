@@ -118,13 +118,15 @@
         } else if (item.type === 'SPOTIFY') {
           div = $('<div id="' + item.id + '" class="polaroid frame track draggable" style="position: absolute"><span class="pin"></span><iframe src="https://embed.spotify.com/?uri=' + item.uri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe></div>');
         } else if (item.type === 'TEXT') {
-          div = $('<div id="' + item.id + '" class="quote draggable" style="width: 400px; position: absolute"><span class="pin"></span><p>'+ item.content +'</p></div>');
+          var content = item.content.replace(/\n/g, "<br />");
+          div = $('<div id="' + item.id + '" class="quote draggable" style="width: 400px; position: absolute"><span class="pin"></span><p>'+ content +'</p></div>');
         } else if (item.type === 'CODE') {
           var codeLang = 'js';
           if (typeof item.codeLang !== 'undefined') {
             codeLang = item.codeLang;
           }
-          div = $('<div id="' + item.id + '" class="code draggable" style="width: 400px; position: absolute"><span class="pin"></span><pre><code class="' + codeLang + '">'+ item.content +'</code></pre></div>');
+          var content = item.content.replace(/\n/g, "<br />");
+          div = $('<div id="' + item.id + '" class="code draggable" style="width: 400px; position: absolute"><span class="pin"></span><pre><code class="' + codeLang + '">'+ content +'</code></pre></div>');
         }
         return div;
       };
