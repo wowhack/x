@@ -69,9 +69,9 @@
 
       var addText = function(textItem) {
         //textItem.content has the text...
-        //var textDiv = $('');
-        //textDiv.appendTo('#boardcontent');
-        //updateDraggable(textDiv);
+        var textDiv = $('<div class="quote draggable" style="width: 400px;"><span class="pin"></span><p>'+ textItem.content +'</p></div>');
+        textDiv.appendTo('#boardcontent');
+        updateDraggable(textDiv);
       };
 
       var getAndIncrementZindex = function() {

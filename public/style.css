@@ -1,6 +1,6 @@
+@import url(http://fonts.googleapis.com/css?family=Indie+Flower|Shadows+Into+Light+Two&subset=latin,latin-ext);
 
 body{
-	font-family: 'Lato';
 	line-height: 1.2em;
 	color: #333;
 	margin: 0;
@@ -27,10 +27,9 @@ html{
 }
 
 #boardcontent{
-	margin-top: 50px;
-	margin-bottom: 40px;
-	width: 100%;
-	padding: 3%;
+	margin: 60px auto;
+	width: 98%;
+	padding: 2%;
 	height: 100%;
 
 }
@@ -50,9 +49,6 @@ html{
 	-webkit-box-shadow: 0 6px 8px rgba(0, 0, 0, .3);
 	-moz-box-shadow: 0 6px 8px rgba(0,0,0,.3);
 	box-shadow: 0 6px 8px rgba(0,0,0,.3);
-	-webkit-transition: all .15s linear;
-	-moz-transition: all .15s linear;
-	transition: all .15s linear;
 	z-index: 0;
 }
 
@@ -62,6 +58,21 @@ html{
 	height: auto;
 	object-fit: contain;
 
+}
+
+.quote {
+	background-color: #FFFA75;
+	padding: 0 15px;
+	display: inline-block;
+	-webkit-box-shadow: 0 6px 8px rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 6px 8px rgba(0,0,0,.3);
+	box-shadow: 0 6px 8px rgba(0,0,0,.3);
+}
+
+.quote p{
+	font-family: 'Indie Flower';
+	font-size: 1.4em;
+	line-height: 1.6em;
 }
 
 .pin{
