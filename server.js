@@ -9,12 +9,13 @@ app.use(bodyParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 boardStore.upsertItem({
+  type: 'TEXT',
+  content: 'I sat on the rug biding my time\nDrinking her wine\nWe talked until two and then she said\n"It\'s time for bed"'
+});
+
+boardStore.upsertItem({
   type: 'IMAGE',
-  url: 'http://d1.dn-static.se/UploadedImages/2014/8/4/5505ef2c-6bc9-4479-8448-370c50a8cbac/original.jpg',
-  position: {
-    x: 500,
-    y: 200
-  }
+  url: 'http://d1.dn-static.se/UploadedImages/2014/8/4/5505ef2c-6bc9-4479-8448-370c50a8cbac/original.jpg'
 });
 
 boardStore.upsertItem({
@@ -25,11 +26,6 @@ boardStore.upsertItem({
 boardStore.upsertItem({
   type: 'SPOTIFY',
   uri: 'spotify:track:6TC8cblDfRetSnRFpJlMdX'
-});
-
-boardStore.upsertItem({
-  type: 'TEXT',
-  content: 'I sat on the rug biding my time\nDrinking her wine\nWe talked until two and then she said\n"It\'s time for bed"'
 });
 
 
@@ -72,6 +68,29 @@ router.route('/board')
     } else {
       console.log('item lacks id, refusing to update!');
     }
+    res.json({});
+  });
+
+router.route('/item/:itemId/position')
+  .post(function(req, res){
+    var itemId = req.params.itemId;
+    console.log('update position for item ' + itemId);
+    newPosition = req.body;
+    item = boardStore.getItem(itemId);
+    item.position = newPosition;
+    boardStore.upsertItem(item);
+    res.json({});
+  });
+
+router.route('/item/:itemId/size')
+  .post(function(req, res){
+    var itemId = req.params.itemId;
+    console.log('update size for item ' + itemId);
+    newSize = req.body;
+    console.log(newSize);
+    item = boardStore.getItem(itemId);
+    item.size = newSize;
+    boardStore.upsertItem(item);
     res.json({});
   });
 
