@@ -109,9 +109,9 @@ html{
 	color: #00A4BD;
 }
 
-.pin{
+.pin_red{
 	margin-left:-16px;
-  	background-image:url(/img/pin2.svg);
+  	background-image:url(/img/pin_red.svg);
   	background-repeat: no-repeat;
   	background-size: 50%;
   	width:75px;
@@ -120,4 +120,30 @@ html{
   	top:-30px;
   	left:45%;
   	z-index:200;
+}
+
+.pin_blue {
+	margin-left:-16px;
+		background-image:url(/img/pin_blue.svg);
+		background-repeat: no-repeat;
+		background-size: 60%;
+		width:75px;
+		height:75px;
+		position:absolute;
+		top:-30px;
+		left:45%;
+		z-index:201;
+}
+
+.pin_green {
+	margin-left:-16px;
+		background-image:url(/img/pin_green.svg);
+		background-repeat: no-repeat;
+		background-size: 40%;
+		width:75px;
+		height:75px;
+		position:absolute;
+		top:-30px;
+		left:55%;
+		z-index:202;
 }
