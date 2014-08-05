@@ -10,19 +10,32 @@
           console.log('loading board with id: ' + board.boardId);
           for (var i = 0; i < board.items.length; i += 1) {
             var item = board.items[i];
-            console.log(item.type);
-            if (item.type === 'IMAGE') {
-              addImage(item);
-            }
-            if (item.type === 'YOUTUBE') {
-              addYoutube(item);
-            }
-            if (item.type === 'SPOTIFY') {
-              addSpotify(item);
-            }
+            addItem(item);
           }
         });
+
+        var host = location.origin.replace(/^http/, 'ws')
+        var ws = new WebSocket(host);
+        ws.onmessage = function (event) {
+          console.log(event);
+          addItem(JSON.parse(event.data));
+        };
+
+
       });
+
+      var addItem = function(item) {
+        console.log(item.type);
+        if (item.type === 'IMAGE') {
+          addImage(item);
+        }
+        if (item.type === 'YOUTUBE') {
+          addYoutube(item);
+        }
+        if (item.type === 'SPOTIFY') {
+          addSpotify(item);
+        }
+      };
 
       var addImage = function(imageItem) {
         $('#board').append('<img src="' + imageItem.url + '">');
