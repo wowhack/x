@@ -7,12 +7,18 @@
   </head>
   <body>
     <div class="top"></div>
-    <div id="boardcontent"></div>
+    <div id="boardcontent">
+
+    </div>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script>
    
     <script>
+      hljs.initHighlightingOnLoad();
 
       var zindexCounter = 5;
 
@@ -45,6 +51,8 @@
         if (item.type === 'TEXT') {
           addText(item);
         }
+         if (item.type === 'CODE') {
+          addCode(item);
       };
 
       var addImage = function(imageItem) {
@@ -101,6 +109,20 @@
           position = getRandomPositionInBoard(textDiv);
         }
         setPosition(textDiv, position);
+      };
+
+
+       var addCode = function(codeItem) {
+        var codeDiv = $('<div id="' + codeItem.id + '" class="code draggable" style="width: 400px; position: absolute"><span class="pin"></span><pre><code class="js">'+ codeItem.content +'</code></pre></div>');
+        codeDiv.appendTo('#boardcontent');
+        updateDraggable(codeDiv);
+        var position;
+        if (typeof codeDiv.position !== 'undefined') {
+          position = codeDiv.position;
+        } else {
+          position = getRandomPositionInBoard(codeDiv);
+        }
+        setPosition(codeDiv, position);
       };
 
       var getAndIncrementZindex = function() {
