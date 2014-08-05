@@ -20,11 +20,22 @@
     <script>
       hljs.initHighlightingOnLoad();
 
-      var zindexCounter = 5;
+      var zindexCounter = 0;
 
       $(function() {
         $.get('/board', function (board) {
           console.log('loading board with id: ' + board.boardId);
+          //first iterate to set highest zindex
+          for (var i = 0; i < board.items.length; i += 1) {
+            var item = board.items[i];
+            if (typeof item.zindex !== 'undefined') {
+              var zindex = parseInt(item.zindex, 10);
+              if (zindex > zindexCounter) {
+                zindexCounter = zindex;
+                console.log(zindexCounter);
+              }
+            }
+          }
           for (var i = 0; i < board.items.length; i += 1) {
             var item = board.items[i];
             addItem(item);
@@ -40,89 +51,82 @@
 
       var addItem = function(item) {
         if (item.type === 'IMAGE') {
-          addImage(item);
+          addDraggableAndResizable(item);
         }
         if (item.type === 'YOUTUBE') {
-          addYoutube(item);
+          addDraggable(item);
         }
         if (item.type === 'SPOTIFY') {
-          addSpotify(item);
+          addDraggable(item);
         }
         if (item.type === 'TEXT') {
-          addText(item);
+          addDraggable(item);
         }
-         if (item.type === 'CODE') {
-          addCode(item);
-      };
-
-      var addImage = function(imageItem) {
-        var imageDiv = $('<div id="' + imageItem.id + '" class="polaroid draggable imgcontainer" style="position: absolute"><span class="pin"></span><img src="' + imageItem.url + '"></div>');
-        imageDiv.appendTo('#boardcontent');
-        updateDraggable(imageDiv);
-        updateResizable(imageDiv);
-        var position;
-        if (typeof imageItem.position !== 'undefined') {
-          position = imageItem.position;
-        } else {
-          position = getRandomPositionInBoard(imageDiv);
-        }
-        setPosition(imageDiv, position);
-        if (typeof imageItem.size !== 'undefined') {
-          setSize(imageDiv, imageItem.size);
+        if (item.type === 'CODE') {
+          addDraggable(item);
         }
       };
 
-      var addYoutube = function(youtubeItem) {
-        var youtubeDiv = $('<div id="' + youtubeItem.id + '" class="polaroid frame movie draggable" style="width: 400px; height:300px; position: absolute"><span class="pin"></span><iframe width="400" height="300" src="//www.youtube.com/embed/' + youtubeItem.videoId + '" frameborder="0" allowfullscreen></iframe></div>');
-        youtubeDiv.appendTo('#boardcontent');
-        updateDraggable(youtubeDiv);
+      var addDraggableAndResizable = function(item) {
+        var div = getDiv(item);
+        div.appendTo('#boardcontent');
+        updateDraggable(div);
+        updateResizable(div);
         var position;
-        if (typeof youtubeItem.position !== 'undefined') {
-          position = youtubeItem.position;
+        if (typeof item.position !== 'undefined') {
+          position = item.position;
         } else {
-          position = getRandomPositionInBoard(youtubeDiv);
+          position = getRandomPositionInBoard(div);
         }
-        setPosition(youtubeDiv, position);
+        var zindex;
+        if (typeof item.zindex !== 'undefined') {
+          zindex = item.zindex;
+        } else {
+          zindex = getAndIncrementZindex();
+        }
+        setPosition(div, position, zindex);
+        if (typeof item.size !== 'undefined') {
+          setSize(div, item.size);
+        }
       };
 
-      var addSpotify = function(spotifyItem) {
-        var spotifyDiv = $('<div id="' + spotifyItem.id + '" class="polaroid frame track draggable" style="position: absolute"><span class="pin"></span><iframe src="https://embed.spotify.com/?uri=' + spotifyItem.uri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe></div>');
-        spotifyDiv.appendTo('#boardcontent');
-        updateDraggable(spotifyDiv);
+      var addDraggable = function (item) {
+        var div = getDiv(item);
+        div.appendTo('#boardcontent');
+        updateDraggable(div);
         var position;
-        if (typeof spotifyItem.position !== 'undefined') {
-          position = spotifyItem.position;
+        if (typeof item.position !== 'undefined') {
+          position = item.position;
         } else {
-          position = getRandomPositionInBoard(spotifyDiv);
+          position = getRandomPositionInBoard(div);
         }
-        setPosition(spotifyDiv, position);
+        var zindex;
+        if (typeof item.zindex !== 'undefined') {
+          zindex = item.zindex;
+        } else {
+          zindex = getAndIncrementZindex();
+        }
+        setPosition(div, position, zindex);
       };
 
-      var addText = function(textItem) {
-        var textDiv = $('<div id="' + textItem.id + '" class="quote draggable" style="width: 400px; position: absolute"><span class="pin"></span><p>'+ textItem.content +'</p></div>');
-        textDiv.appendTo('#boardcontent');
-        updateDraggable(textDiv);
-        var position;
-        if (typeof textItem.position !== 'undefined') {
-          position = textItem.position;
-        } else {
-          position = getRandomPositionInBoard(textDiv);
+      var getDiv = function (item) {
+        var div;
+        if (item.type === 'IMAGE') {
+          div = $('<div id="' + item.id + '" class="polaroid draggable imgcontainer" style="position: absolute"><span class="pin"></span><img src="' + item.url + '"></div>');
+        } else if (item.type === 'YOUTUBE') {
+          div = $('<div id="' + item.id + '" class="polaroid frame movie draggable" style="width: 400px; height:300px; position: absolute"><span class="pin"></span><iframe width="400" height="300" src="//www.youtube.com/embed/' + item.videoId + '" frameborder="0" allowfullscreen></iframe></div>');
+        } else if (item.type === 'SPOTIFY') {
+          div = $('<div id="' + item.id + '" class="polaroid frame track draggable" style="position: absolute"><span class="pin"></span><iframe src="https://embed.spotify.com/?uri=' + item.uri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe></div>');
+        } else if (item.type === 'TEXT') {
+          div = $('<div id="' + item.id + '" class="quote draggable" style="width: 400px; position: absolute"><span class="pin"></span><p>'+ item.content +'</p></div>');
+        } else if (item.type === 'CODE') {
+          var codeLang = js;
+          if (typeof item.codeLang !== 'undefined') {
+            codeLang = item.codeLang;
+          }
+          div = $('<div id="' + item.id + '" class="code draggable" style="width: 400px; position: absolute"><span class="pin"></span><pre><code class="' + codeLang + '">'+ item.content +'</code></pre></div>');
         }
-        setPosition(textDiv, position);
-      };
-
-
-       var addCode = function(codeItem) {
-        var codeDiv = $('<div id="' + codeItem.id + '" class="code draggable" style="width: 400px; position: absolute"><span class="pin"></span><pre><code class="js">'+ codeItem.content +'</code></pre></div>');
-        codeDiv.appendTo('#boardcontent');
-        updateDraggable(codeDiv);
-        var position;
-        if (typeof codeDiv.position !== 'undefined') {
-          position = codeDiv.position;
-        } else {
-          position = getRandomPositionInBoard(codeDiv);
-        }
-        setPosition(codeDiv, position);
+        return div;
       };
 
       var getAndIncrementZindex = function() {
@@ -144,16 +148,15 @@
             sendPosition($(this));
           }
         });
-        draggableDiv.click(function(){
-          $(this).css('z-index', getAndIncrementZindex());
-        });
+//        draggableDiv.click(function(){
+//          $(this).css('z-index', getAndIncrementZindex());
+//        });
       };
 
-      var setPosition = function(div, position) {
-        console.log('setting position:');
-        console.log(position);
+      var setPosition = function(div, position, zindex) {
         div.offset(position);
         div.css({top: position.top+'px', left: position.left+'px' });
+        div.zIndex(zindex);
       };
 
       var sendPosition = function(div) {
@@ -161,8 +164,16 @@
         var left = Math.round(offset.left);
         var top = Math.round(offset.top);
         var itemId = div.attr('id');
-        console.log('updating position for item id: ' + itemId + '... left: ' + left + ', top: ' + top);
-        $.post('/item/' + itemId + '/position', {left: left, top: top});
+        var zindex = parseInt(div.zIndex(), 10);
+        console.log('zindex of ' + itemId + ': ' + zindex);
+        var obj = {
+          position: {
+            left: left,
+            top: top
+          },
+          zindex: zindex
+        }
+        $.post('/item/' + itemId + '/position', obj);
       };
 
       var updateResizable = function(resizableDiv) {
@@ -184,19 +195,14 @@
         var height = div.height();
         var size = {width: width, height: height};
         var itemId = div.attr('id');
-        console.log('updating size for item id: ' + itemId + '... width: ' + width + ', height: ' + height);
         $.post('/item/' + itemId + '/size', size);
       };
 
       var getRandomPositionInBoard = function(div) {
         var width = Math.round(div.width());
-        console.log('width: ' + width);
         var height = Math.round(div.height());
-        console.log('height: ' + height);
         var bcWidth = Math.round($('#boardcontent').width());
-        console.log('bcWidth: ' + bcWidth);
         var bcHeight = Math.round($('#boardcontent').height());
-        console.log('bcHeight ' + bcHeight);
         var posLeft = Math.floor(Math.random() * ((bcWidth - width) - 0 + 1));
         var posTop = Math.floor(Math.random() * ((bcHeight - height) - 0 + 1));
         return {

@@ -75,9 +75,11 @@ router.route('/item/:itemId/position')
   .post(function(req, res){
     var itemId = req.params.itemId;
     console.log('update position for item ' + itemId);
-    newPosition = req.body;
+    newPosition = req.body.position;
+    newZindex = req.body.zindex;
     item = boardStore.getItem(itemId);
     item.position = newPosition;
+    item.zindex = newZindex;
     boardStore.upsertItem(item);
     res.json({});
   });
