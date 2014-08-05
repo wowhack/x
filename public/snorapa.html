@@ -1,0 +1,66 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<title>Moodboard</title>	
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="style.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
+		
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+
+
+		<script type="text/javascript">
+			$( document ).ready(function() {
+				
+    			$('.draggable').draggable({containment: "parent"});
+  				$('.imgcontainer').resizable({ iframeFix: true });
+
+				$(".movie").resizable({
+					start: function(event, ui) {
+						ui.element.append($("<div/>", {
+							id: "iframe-barrier",
+							css: {
+								"z-index": 10
+							}
+						}));
+					},
+					stop: function(event, ui) {
+						$("#iframe-barrier", ui.element).remove();
+					},
+					resize: function(event, ui) {
+						$(".move iframe", ui.element).width(ui.size.width).height(ui.size.height);
+					}
+				});
+					
+			});
+	
+			
+		</script>
+			
+	</head>
+
+	<body>
+		<div class="top">
+			
+		</div>
+
+		<div class="boardcontent">
+
+			<div class="polaroid draggable imgcontainer"><span class="pin"></span><img src="http://placekitten.com/g/600/600" alt=""></div>
+
+
+		<div class="polaroid draggable imgcontainer"><span class="pin"></span><img src="http://placekitten.com/g/400/400" width="400" height="400" alt=""></div>
+		
+
+		<div class="frame movie draggable" style="width: 560px; height: 315px;"><iframe width="560" height="315" src="//www.youtube.com/embed/Kdgt1ZHkvnM" frameborder="0"> </iframe></div>
+
+		<div class="frame track draggable"><iframe src="https://embed.spotify.com/?uri=spotify:track:7cmMZ45nWU8JtvdIzgXlli" width="300" height="380" frameborder="0" allowtransparency="true"></iframe></div>
+		</div>
+
+	</body>
+
+
+</html>
+
+
