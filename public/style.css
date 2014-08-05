@@ -10,7 +10,7 @@ body{
 }
 
 html{
-	background: url(/public/img/cork.jpg) no-repeat center center fixed; 
+	background: url(/img/cork.jpg) no-repeat center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -66,7 +66,7 @@ html{
 
 .pin{
 	margin-left:-16px;
-  	background-image:url(/public/img/pin2.svg);
+  	background-image:url(/img/pin2.svg);
   	background-repeat: no-repeat;
   	background-size: 50%;
   	width:75px;
