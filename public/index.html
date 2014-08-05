@@ -2,38 +2,20 @@
 <html>
   <head>
     <meta charset="utf-8">
-    
-    <link rel="stylesheet" href="style.css">
-    
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
-
-    <script type="text/javascript">
-      $( document ).ready(function() {
-        
-          
-          
-      });  
-      
-    </script>
-
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <div class="top"></div>
+    <div id="boardcontent"></div>
 
-
-
-    <div class="top">
-      
-    </div>
-
-    <div class="boardcontent">
-      
-
-    </div>
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
    
     <script>
+
+      var zindexCounter = 5;
+
       $(function() {
         $.get('/board', function (board) {
           console.log('loading board with id: ' + board.boardId);
@@ -46,15 +28,8 @@
         var host = location.origin.replace(/^http/, 'ws')
         var ws = new WebSocket(host);
         ws.onmessage = function (event) {
-          console.log(event);
           addItem(JSON.parse(event.data));
         };
-
-        $('.draggable').draggable({containment: "parent"});
-          $('.imgcontainer').resizable({aspectRatio: true});
-
-        
-
       });
 
       var addItem = function(item) {
@@ -71,20 +46,50 @@
       };
 
       var addImage = function(imageItem) {
-        $('.boardcontent').append('<div class="polaroid draggable imgcontainer"><span class="pin"></span><img src="' + imageItem.url + '"></div>');
-        $('.draggable').draggable({containment: "parent"});
-          $('.imgcontainer').resizable({aspectRatio: true});
+        var imageDiv = $('<div class="polaroid draggable imgcontainer"><span class="pin"></span><img src="' + imageItem.url + '"></div>');
+        imageDiv.appendTo('#boardcontent');
+        updateDraggable(imageDiv);
+        updateResizable(imageDiv);
       };
 
       var addYoutube = function(youtubeItem) {
-        $('.boardcontent').append(' <div class="frame movie draggable" style="width: 400px; height:300px;"><iframe width="400" height="300" src="//www.youtube.com/embed/' + youtubeItem.videoId + '" frameborder="0" allowfullscreen></iframe></div>');
-       
+        var youtubeDiv = $('<div class="polaroid frame movie draggable" style="width: 400px; height:300px;"><span class="pin"></span><iframe width="400" height="300" src="//www.youtube.com/embed/' + youtubeItem.videoId + '" frameborder="0" allowfullscreen></iframe></div>');
+        youtubeDiv.appendTo('#boardcontent');
+        updateDraggable(youtubeDiv);
       };
 
       var addSpotify = function(spotifyItem) {
-        $('.boardcontent').append('<div class="frame track draggable"><iframe src="https://embed.spotify.com/?uri=' + spotifyItem.uri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe></div>');
-        $('.draggable').draggable({containment: "parent"});
-      }
+        var spotifyDiv = $('<div class="polaroid frame track draggable"><span class="pin"></span><iframe src="https://embed.spotify.com/?uri=' + spotifyItem.uri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe></div>');
+        spotifyDiv.appendTo('#boardcontent');
+        updateDraggable(spotifyDiv);
+      };
+
+      var getAndIncrementZindex = function() {
+        zindexCounter += 1;
+        return zindexCounter;
+      };
+
+      var updateDraggable = function(draggableDiv) {
+        var zindexCount = getAndIncrementZindex();
+        draggableDiv.css('z-index', zindexCount)
+        draggableDiv.draggable({
+          containment: "parent",
+          start: function(){
+            $(this).css('z-index', getAndIncrementZindex());
+            $(this).children('.pin').hide();
+          },
+          stop: function(){
+            $(this).children('.pin').show();
+          }
+        });
+        draggableDiv.click(function(){
+          $(this).css('z-index', getAndIncrementZindex());
+        });
+      };
+
+      var updateResizable = function(resizableDiv) {
+        resizableDiv.resizable({aspectRatio: true});
+      };
 
     </script>
   </body>
