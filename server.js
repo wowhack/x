@@ -20,6 +20,12 @@ var board = {
       x: 500,
       y: 200
     }
+  },{
+    type: 'YOUTUBE',
+    videoId: 'PTKIEr6V__k'
+  }, {
+    type: 'SPOTIFY',
+    uri: 'spotify:track:6TC8cblDfRetSnRFpJlMdX'
   }]
 };
 

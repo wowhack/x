@@ -1,1 +1,40 @@
-testing
+<html>
+  <head></head>
+  <body>
+    <div id="board"></div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      $(function() {
+        $.get('/board', function (board) {
+          console.log('loading board with id: ' + board.boardId);
+          for (var i = 0; i < board.items.length; i += 1) {
+            var item = board.items[i];
+            console.log(item.type);
+            if (item.type === 'IMAGE') {
+              addImage(item);
+            }
+            if (item.type === 'YOUTUBE') {
+              addYoutube(item);
+            }
+            if (item.type === 'SPOTIFY') {
+              addSpotify(item);
+            }
+          }
+        });
+      });
+
+      var addImage = function(imageItem) {
+        $('#board').append('<img src="' + imageItem.url + '">');
+      };
+
+      var addYoutube = function(youtubeItem) {
+        $('#board').append('<iframe width="400" height="300" src="//www.youtube.com/embed/' + youtubeItem.videoId + '" frameborder="0" allowfullscreen></iframe>');
+      };
+
+      var addSpotify = function(spotifyItem) {
+        $('#board').append('<iframe src="https://embed.spotify.com/?uri=' + spotifyItem.uri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>');
+      }
+    </script>
+  </body>
+</html>
