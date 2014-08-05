@@ -1,0 +1,54 @@
+
+body{
+	font-family: 'Lato';
+	line-height: 1.2em;
+	color: #333;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+
+html{
+	background: url('cork.jpg') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.top{
+	height: 40px;
+	width: 100%;
+	background-color: #3B2103;
+	position: fixed;
+	top:0;
+	z-index: 1000;
+}
+
+.boardcontent{
+	margin-top: 20px;
+	width: 100%;
+	padding: 5%;
+	height: 100%;
+	overflow: auto;
+}
+
+.polaroid{
+	background: #FFF;
+	display: inline;
+	float: left;
+	margin: 0 15px 30px;
+	padding: 15px 15px 30px;
+	text-align: center;
+	text-decoration: none;
+	-webkit-box-shadow: 0 6px 8px rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 6px 8px rgba(0,0,0,.3);
+	box-shadow: 0 6px 8px rgba(0,0,0,.3);
+	-webkit-transition: all .15s linear;
+	-moz-transition: all .15s linear;
+	transition: all .15s linear;
+	z-index:0;
+    position:relative;
+}
