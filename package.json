@@ -8,7 +8,8 @@
   "dependencies": {
     "express": "~4.2.0",
     "body-parser": "~1.0.0",
-    "ws": "0.4.x"
+    "ws": "0.4.x",
+    "restler": "3.2.2"
   },
   "engines": {
     "node": "0.10.x"
