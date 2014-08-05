@@ -120,7 +120,7 @@
         } else if (item.type === 'TEXT') {
           div = $('<div id="' + item.id + '" class="quote draggable" style="width: 400px; position: absolute"><span class="pin"></span><p>'+ item.content +'</p></div>');
         } else if (item.type === 'CODE') {
-          var codeLang = js;
+          var codeLang = 'js';
           if (typeof item.codeLang !== 'undefined') {
             codeLang = item.codeLang;
           }
