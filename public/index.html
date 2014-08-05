@@ -43,6 +43,9 @@
         if (item.type === 'SPOTIFY') {
           addSpotify(item);
         }
+        if (item.type === 'TEXT') {
+          addText(item);
+        }
       };
 
       var addImage = function(imageItem) {
@@ -62,6 +65,13 @@
         var spotifyDiv = $('<div class="polaroid frame track draggable"><span class="pin"></span><iframe src="https://embed.spotify.com/?uri=' + spotifyItem.uri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe></div>');
         spotifyDiv.appendTo('#boardcontent');
         updateDraggable(spotifyDiv);
+      };
+
+      var addText = function(textItem) {
+        //textItem.content has the text...
+        //var textDiv = $('');
+        //textDiv.appendTo('#boardcontent');
+        //updateDraggable(textDiv);
       };
 
       var getAndIncrementZindex = function() {

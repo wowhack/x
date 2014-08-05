@@ -27,6 +27,11 @@ boardStore.upsertItem({
   uri: 'spotify:track:6TC8cblDfRetSnRFpJlMdX'
 });
 
+boardStore.upsertItem({
+  type: 'TEXT',
+  content: 'I sat on the rug biding my time\nDrinking her wine\nWe talked until two and then she said\n"It\'s time for bed"'
+});
+
 
 var server = http.createServer(app);
 
