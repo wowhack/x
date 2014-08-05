@@ -8,7 +8,7 @@ var Moodify = {
     Moodify.push(image.srcUrl);
   },
   push: function(url) {
-    $.post("http://agile-plains-5375.herokuapp.com/board", {
+    $.post("http://xteamshitboard.herokuapp.com/board", {
     type: "IMAGE",
     url: url
   });
