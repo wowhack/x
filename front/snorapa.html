@@ -4,6 +4,23 @@
 		<title>Moodboard</title>	
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="style.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
+		<script src="jquery-imagefill.js"></script>
+
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+
+		<script type="text/javascript">
+			$( document ).ready(function() {
+				$('.imgcontainer').imagefill();
+    			$('.draggeble').draggable();
+  				$('.draggeble').resizable();
+			});
+	
+			
+		</script>
+			
 	</head>
 
 	<body>
@@ -13,9 +30,32 @@
 
 		<div class="boardcontent">
 
+			<a class="polaroid draggeble imgcontainer"><span class="pin"></span><img src="http://placekitten.com/g/400/300" alt=""></a>
+
+
+			<a class="polaroid draggeble imgcontainer"><span class="pin"></span><img src="http://placekitten.com/g/400/400" alt=""></a>
+
+			<a class="polaroid draggeble imgcontainer"><span class="pin"></span><img src="http://placekitten.com/g/300/400" alt=""></a>
+			
+			<a class="frame movie draggeble imgcontainer"><iframe width="480" height="360" src="//www.youtube.com/embed/8uDuls5TyNE" frameborder="0" allowfullscreen></iframe></a>
+
+			<a class="polaroid draggeble"><span class="pin"></span><img src="http://placekitten.com/g/600/400" alt=""></a>
+
+			<a class="polaroid draggeble"><span class="pin"></span><img src="http://placekitten.com/g/200/200" alt=""></a>
+
+			<a class="frame track draggeble"><iframe src="https://embed.spotify.com/?uri=spotify:track:7cmMZ45nWU8JtvdIzgXlli" width="300" height="380" frameborder="0" allowtransparency="true"></iframe></a>
+		</div>
+	</body>
+
+
+</html>
+
+
 
 		</div>
 	</body>
 
 
 </html>
+
+
