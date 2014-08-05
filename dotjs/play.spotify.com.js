@@ -1,8 +1,6 @@
 var REDIRECT_URL = "https://play.spotify.com/user/surp/playlist/7bHQGUIY2Biplr9sKVlGSr";
 var SPOTIFY_URI = "spotify:track:";
-
 var SPOTIFY_ENDPOINT = "https://api.spotify.com/v1";
-
 var MUSIXMATCH_KEY = "&apikey=3504b47f65820926017b77475afea890";
 var MATCH_ENDPOINT = "http://api.musixmatch.com/ws/1.1/";
 
