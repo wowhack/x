@@ -32,6 +32,10 @@ exports.getItem = function(itemId) {
   }
 };
 
+exports.deleteItem = function(itemId) {
+
+};
+
 
 
 var generateUUID = function() {
