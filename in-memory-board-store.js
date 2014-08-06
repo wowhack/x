@@ -10,6 +10,9 @@ exports.getBoard = function() {
 exports.upsertItem = function(item) {
   if (typeof item.id === 'undefined') {
     item.id = generateUUID();
+    if (typeof item.zindex === 'undefined') {
+      item.zindex = getHighestZIndex() + 1;
+    }
     board.items.push(item);
   } else {
     for (var i = 0; i < board.items.length; i += 1) {
@@ -36,6 +39,17 @@ exports.deleteItem = function(itemId) {
 
 };
 
+
+var getHighestZIndex = function() {
+  var highestZIndex = 2;
+  for (var i = 0; i < board.items.length; i += 1) {
+    var item = board.items[i];
+    if (item.zindex > highestZIndex) {
+      highestZIndex = item.zindex;
+    }
+  }
+  return highestZIndex;
+};
 
 
 var generateUUID = function() {
