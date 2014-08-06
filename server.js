@@ -88,7 +88,7 @@ router.route('/item/:itemId/position')
     console.log('update position for item ' + itemId);
     var originator = req.body.originator;
     var newPosition = req.body.position;
-    var newZindex = req.body.zindex;
+    var newZindex = parseInt(req.body.zindex, 10);
     var item = boardStore.getItem(itemId);
     item.position = newPosition;
     item.zindex = newZindex;
