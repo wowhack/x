@@ -21,8 +21,12 @@
    
     <script>
       var zindexCounter = 0;
+      var host = location.origin.replace(/^http/, 'ws');
+      var ws = new WebSocket(host);
+      var me;
 
       $(function() {
+        me = generateUUID();
         $.get('/board', function (board) {
           console.log('loading board with id: ' + board.boardId);
           //first iterate to set highest zindex
@@ -42,12 +46,30 @@
           }
         });
 
-        var host = location.origin.replace(/^http/, 'ws');
-        var ws = new WebSocket(host);
         ws.onmessage = function (event) {
-          addItem(JSON.parse(event.data));
+          var item = JSON.parse(event.data);
+          if ((item.type === 'POSITION' || item.type === 'SIZE') && item.originator !== me) {
+            console.log('got pos or size update for item with id ' + item.item.id);
+            console.log(item);
+            updateItem(item);
+          } else {
+            addItem(item);
+          }
         };
       });
+
+      var updateItem = function(obj) {
+        var div = $('#' + obj.item.id);
+        if (obj.type === 'SIZE') {
+          console.log('setting size of ' + div);
+          setSize(div, obj.item.size);
+        } else if (obj.type === 'POSITION') {
+          console.log('setting position of ' + div);
+          setPosition(div, obj.item.position, obj.item.zindex);
+        }
+      };
+
+
 
       var addItem = function(item) {
         if (item.type === 'IMAGE') {
@@ -173,12 +195,14 @@
         var zindex = parseInt(div.zIndex(), 10);
         console.log('zindex of ' + itemId + ': ' + zindex);
         var obj = {
+          originator: me,
           position: {
             left: left,
             top: top
           },
           zindex: zindex
-        }
+        };
+//        ws.send({type: 'POSITION', itemId: itemId, obj: obj});
         $.post('/item/' + itemId + '/position', obj);
       };
 
@@ -200,8 +224,13 @@
         var width = div.width();
         var height = div.height();
         var size = {width: width, height: height};
+        var sizeObj = {
+          originator: me,
+          size: size
+        };
         var itemId = div.attr('id');
-        $.post('/item/' + itemId + '/size', size);
+//        ws.send({type: 'SIZE', itemId: itemId, size: size});
+        $.post('/item/' + itemId + '/size', sizeObj);
       };
 
       var getRandomPositionInBoard = function(div) {
@@ -215,6 +244,16 @@
           left: posLeft,
           top: posTop
         }
+      };
+
+      var generateUUID = function() {
+        var d = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = (d + Math.random()*16)%16 | 0;
+          d = Math.floor(d/16);
+          return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+        });
+        return uuid;
       };
 
     </script>

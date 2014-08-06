@@ -44,6 +44,9 @@ console.log("websocket server created");
 
 wss.on("connection", function(ws) {
   console.log("websocket connection open");
+  ws.on("message", function(message){
+    console.log('got a message: ' + message);
+  });
   ws.on("close", function () {
     console.log("websocket connection closed");
   });
@@ -83,12 +86,19 @@ router.route('/item/:itemId/position')
   .post(function(req, res){
     var itemId = req.params.itemId;
     console.log('update position for item ' + itemId);
-    newPosition = req.body.position;
-    newZindex = req.body.zindex;
-    item = boardStore.getItem(itemId);
+    var originator = req.body.originator;
+    var newPosition = req.body.position;
+    var newZindex = req.body.zindex;
+    var item = boardStore.getItem(itemId);
     item.position = newPosition;
     item.zindex = newZindex;
     boardStore.upsertItem(item);
+    var posItem = {
+      originator: originator,
+      type: 'POSITION',
+      item: item
+    };
+    wss.broadcast(posItem);
     res.json({});
   });
 
@@ -96,11 +106,18 @@ router.route('/item/:itemId/size')
   .post(function(req, res){
     var itemId = req.params.itemId;
     console.log('update size for item ' + itemId);
-    newSize = req.body;
+    var originator = req.body.originator;
+    var newSize = req.body.size;
     console.log(newSize);
-    item = boardStore.getItem(itemId);
+    var item = boardStore.getItem(itemId);
     item.size = newSize;
     boardStore.upsertItem(item);
+    var sizeItem = {
+      originator: originator,
+      type: 'SIZE',
+      item: item
+    };
+    wss.broadcast(sizeItem);
     res.json({});
   });
 
