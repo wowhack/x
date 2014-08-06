@@ -93,10 +93,6 @@ html{
 	box-shadow: 0 6px 8px rgba(0,0,0,.3);
 }
 
-pre{
-	background: #f0f0f0;
-}
-
 .pinkcolor{
 	color: #E0048C;
 }
@@ -117,7 +113,7 @@ pre{
 	margin-left:-16px;
   	background-image:url(/img/pin_red.svg);
   	background-repeat: no-repeat;
-  	background-size: 50%;
+  	background-size: 60%;
   	width:75px;
   	height:75px;
   	position:absolute;
@@ -128,26 +124,26 @@ pre{
 
 .pin_blue {
 	margin-left:-16px;
-		background-image:url(/img/pin_blue.svg);
+		background-image:url(/img/blue_pin.svg);
 		background-repeat: no-repeat;
-		background-size: 60%;
+		background-size: 80%;
 		width:75px;
 		height:75px;
 		position:absolute;
-		top:-30px;
+		top:-40;
 		left:45%;
 		z-index:201;
 }
 
 .pin_green {
 	margin-left:-16px;
-		background-image:url(/img/pin_green.svg);
+		background-image:url(/img/green_pin.svg);
 		background-repeat: no-repeat;
-		background-size: 40%;
+		background-size: 80%;
 		width:75px;
 		height:75px;
 		position:absolute;
-		top:-30px;
+		top:-30;
 		left:55%;
 		z-index:202;
 }
