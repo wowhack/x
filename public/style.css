@@ -117,7 +117,7 @@ html{
   	width:75px;
   	height:75px;
   	position:absolute;
-  	top:-30px;
+  	top:-40;
   	left:45%;
   	z-index:200;
 }
@@ -143,8 +143,8 @@ html{
 		width:75px;
 		height:75px;
 		position:absolute;
-		top:-30;
-		left:55%;
+		top:-40;
+		left:51%;
 		z-index:202;
 }
 
