@@ -93,6 +93,10 @@ html{
 	box-shadow: 0 6px 8px rgba(0,0,0,.3);
 }
 
+pre{
+	background: #f0f0f0;
+}
+
 .pinkcolor{
 	color: #E0048C;
 }
@@ -148,15 +152,3 @@ html{
 		z-index:202;
 }
 
-.pin_green {
-	margin-left:-16px;
-		background-image:url(/img/pin_green.svg);
-		background-repeat: no-repeat;
-		background-size: 40%;
-		width:75px;
-		height:75px;
-		position:absolute;
-		top:-30px;
-		left:55%;
-		z-index:202;
-}
