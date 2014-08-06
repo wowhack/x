@@ -121,7 +121,7 @@
           div = $('<div id="' + item.id + '" class="polaroid frame track draggable" style="position: absolute"><span class="pin_green"></span><iframe src="https://embed.spotify.com/?uri=' + item.uri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe></div>');
         } else if (item.type === 'TEXT') {
           var content = item.content.replace(/\n/g, "<br />");
-          div = $('<div id="' + item.id + '" class="quote draggable" style="width: 400px; position: absolute"><span class="pin_blue"></span><p>'+ content +'</p></div>');
+          div = $('<div id="' + item.id + '" class="quote draggable" style="width: 400px; position: absolute"><span class="pin_red"></span><p>'+ content +'</p></div>');
         } else if (item.type === 'CODE') {
           var codeLang = 'js';
           if (typeof item.codeLang !== 'undefined') {
