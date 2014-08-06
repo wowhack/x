@@ -18,7 +18,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
 
     <script src="js/prism.js"></script>
-   
+
     <script>
       var zindexCounter = 0;
       var host = location.origin.replace(/^http/, 'ws');
@@ -26,6 +26,21 @@
       var me;
 
       $(function() {
+
+        //ContextMenu Start
+        var popup = $(".popup");
+        popup.hide();
+        document.oncontextmenu = function() { return false; };
+        $("#boardcontent").mousedown(function(e) {
+          if(e.button == 2) {
+            popup.css("left", e.pageX).css("top", e.pageY).show();
+          }
+        });
+        popup.focusout(function(e) {
+          popup.append("<span class='pin_red'></span>");
+        });
+        //ContextMenu End
+
         me = generateUUID();
         $.get('/board', function (board) {
           console.log('loading board with id: ' + board.boardId);
@@ -257,5 +272,8 @@
       };
 
     </script>
+    <div class="popup">
+        <textarea class="comment" placeholder="Add a comment"></textarea>
+    </div>
   </body>
 </html>
