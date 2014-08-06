@@ -191,9 +191,10 @@
             sendPosition($(this));
           }
         });
-//        draggableDiv.click(function(){
-//          $(this).css('z-index', getAndIncrementZindex());
-//        });
+        draggableDiv.click(function(){
+          $(this).css('z-index', getAndIncrementZindex());
+          sendPosition($(this));
+        });
       };
 
       var setPosition = function(div, position, zindex) {
