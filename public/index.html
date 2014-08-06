@@ -137,14 +137,14 @@
       var getDiv = function (item) {
         var div;
         if (item.type === 'IMAGE') {
-          div = $('<div id="' + item.id + '" class="polaroid draggable imgcontainer" style="position: absolute"><span class="pin_red"></span><img src="' + item.url + '"></div>');
+          div = $('<div id="' + item.id + '" class="polaroid draggable imgcontainer" style="position: absolute"><span class="pin pin_red"></span><img src="' + item.url + '"></div>');
         } else if (item.type === 'YOUTUBE') {
-          div = $('<div id="' + item.id + '" class="polaroid frame movie draggable" style="width: 400px; height:300px; position: absolute"><span class="pin_blue"></span><iframe width="400" height="300" src="//www.youtube.com/embed/' + item.videoId + '" frameborder="0" allowfullscreen></iframe></div>');
+          div = $('<div id="' + item.id + '" class="polaroid frame movie draggable" style="width: 400px; height:300px; position: absolute"><span class="pin pin_blue"></span><iframe width="400" height="300" src="//www.youtube.com/embed/' + item.videoId + '" frameborder="0" allowfullscreen></iframe></div>');
         } else if (item.type === 'SPOTIFY') {
-          div = $('<div id="' + item.id + '" class="polaroid frame track draggable" style="position: absolute"><span class="pin_green"></span><iframe src="https://embed.spotify.com/?uri=' + item.uri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe></div>');
+          div = $('<div id="' + item.id + '" class="polaroid frame track draggable" style="position: absolute"><span class="pin pin_green"></span><iframe src="https://embed.spotify.com/?uri=' + item.uri + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe></div>');
         } else if (item.type === 'TEXT') {
           var content = item.content.replace(/\n/g, "<br />");
-          div = $('<div id="' + item.id + '" class="quote draggable" style="width: 400px; position: absolute"><span class="pin_red"></span><p>'+ content +'</p></div>');
+          div = $('<div id="' + item.id + '" class="quote draggable" style="width: 400px; position: absolute"><span class="pin pin_red"></span><p>'+ content +'</p></div>');
         } else if (item.type === 'CODE') {
           var codeLang = 'js';
           if (typeof item.codeLang !== 'undefined') {
@@ -152,7 +152,7 @@
           }
           var content = item.content.replace(/\n/g, "<br />");
 //          div = $('<div id="' + item.id + '" class="code draggable" style="width: 600px; position: absolute"><span class="pin"></span><pre><code class="language-javascript">'+ content +'</code></pre></div>');
-          div = $('<div id="' + item.id + '" class="code draggable" position: absolute"><span class="pin_green"></span><pre><code class="language-javascript">var hasProps = props && Base.isPlainObject(props),\n internal = hasProps && props.internal === true,\n matrix = this._matrix = new Matrix(),\n project = paper.project;</code></pre></div>');
+          div = $('<div id="' + item.id + '" class="code draggable" style="position: absolute"><span class="pin pin_green"></span><pre><code class="language-javascript">var hasProps = props && Base.isPlainObject(props),\n internal = hasProps && props.internal === true,\n matrix = this._matrix = new Matrix(),\n project = paper.project;</code></pre></div>');
         }
         return div;
       };
